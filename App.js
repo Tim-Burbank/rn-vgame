@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { agoraService } from "./agora"
 import { AgoraView } from 'react-native-agora'
+import RNPermissions, {PERMISSIONS} from 'react-native-permissions'
 
 export default class HelloWorldApp extends Component {
-  componentDidMount() {
+  async componentDidMount() {
+    await RNPermissions.request(PERMISSIONS.IOS.CAMERA)
+    await RNPermissions.request(PERMISSIONS.IOS.MICROPHONE)
     agoraService.joinChannel()
   }
   render() {

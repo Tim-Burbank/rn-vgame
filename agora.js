@@ -136,17 +136,23 @@ class AgoraService {
   }
 
   leaveChannel() {
-    const agoraStore = configureStore().agoraStore
-    console.log('[RtcEngine] leaving')
-    if (agoraStore.joinSuccess) {
-      agoraStore.leave()
-      RtcEngine.leaveChannel().then(_ => {
-        console.log('[RtcEngine] leave channel success')
-        // configureStore().appStore.socketEmit2('leave').then(() => {
-        //   console.log('[RtcEngine] socket leave leave leave')
-        // })
-      })
-    }
+    // const agoraStore = configureStore().agoraStore
+    // console.log('[RtcEngine] leaving')
+    // if (agoraStore.joinSuccess) {
+    //   agoraStore.leave()
+    //   RtcEngine.leaveChannel().then(_ => {
+    //     console.log('[RtcEngine] leave channel success')
+    //     // configureStore().appStore.socketEmit2('leave').then(() => {
+    //     //   console.log('[RtcEngine] socket leave leave leave')
+    //     // })
+    //   })
+    // }
+    RtcEngine.leaveChannel().then(_ => {
+      console.log('[RtcEngine] leave channel success')
+      // configureStore().appStore.socketEmit2('leave').then(() => {
+      //   console.log('[RtcEngine] socket leave leave leave')
+      // })
+    })
   }
 
   joinChannel(channel: string = DEFAULT_CHANNEL, uid?: number, token?: string) {
