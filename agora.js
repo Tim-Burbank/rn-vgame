@@ -1,4 +1,4 @@
-import { NativeModules } from 'react-native'
+import {DeviceEventEmitter, NativeModules} from 'react-native'
 import { RtcEngine } from 'react-native-agora'
 // import configureStore from '../boot/configureStore'
 // import BackgroundTimer from 'react-native-background-timer'
@@ -52,6 +52,7 @@ class AgoraService {
     RtcEngine.on('userJoined', data => {
       console.log('[RtcEngine] onUserJoined', data)
       // configureStore().agoraStore.setCurrentBroadcaster(data.uid)
+      DeviceEventEmitter.emit('uid', {uid: data.uid})
 
     })
     RtcEngine.on('userOffline', data => {
@@ -61,8 +62,19 @@ class AgoraService {
     RtcEngine.on('joinChannelSuccess', data => {
       console.log('[RtcEngine] onJoinChannelSuccess', data)
       // configureStore().agoraStore.setMyUid(data.uid)
-      RtcEngine.startPreview()
+      RtcEngine.setClientRole(CLIENT_ROLE_BROADCASTER).then(_ => {
+        console.log('[RtcEngine] setClientRole CLIENT_ROLE_BROADCASTER')
+        RtcEngine.startPreview().then(_ => {
+          console.log('[RtcEngine] startPreview')
+          // RtcEngine.muteLocalAudioStream(true).then(() => {
+          //   console.log('[RtcEngine] muteLocalAudioStream true')
+          // })
+          // configureStore().agoraStore.setSelfPreview(true)
+        })
+      })
+      // RtcEngine.startPreview()
       // this.joinChannelSocket(DEFAULT_CHANNEL, data.uid)
+      // DeviceEventEmitter.emit('uid', {uid: data.uid})
     })
     RtcEngine.on('audioVolumeIndication', data => {
       console.log('[RtcEngine] onAudioVolumeIndication', data)
@@ -110,7 +122,6 @@ class AgoraService {
     RtcEngine.getSdkVersion(version => {
       console.log('[RtcEngine] getSdkVersion', version)
     })
-    this.init()
   }
 
   init() {
@@ -155,7 +166,7 @@ class AgoraService {
     })
   }
 
-  joinChannel(channel: string = DEFAULT_CHANNEL, uid?: number, token?: string) {
+  joinChannel(channel = DEFAULT_CHANNEL, uid, token) {
     RtcEngine.joinChannel(channel, uid, token).then(result => {
       /**
        * ADD the code snippet after join channel success.
