@@ -52,6 +52,7 @@ class AgoraService {
     RtcEngine.on('userJoined', data => {
       console.log('[RtcEngine] onUserJoined', data)
       // configureStore().agoraStore.setCurrentBroadcaster(data.uid)
+
     })
     RtcEngine.on('userOffline', data => {
       console.log('[RtcEngine] onUserOffline', data)
