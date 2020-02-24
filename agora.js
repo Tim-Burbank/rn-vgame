@@ -17,6 +17,7 @@ const CONFIG = {
   appid: APPID,
   channelProfile: CHANNEL_PROFILE,
   clientRole: CLIENT_ROLE_AUDIENCE,
+  mode:1,
   videoEncoderConfig: {
     width: 360,
     height: 360,
@@ -52,7 +53,7 @@ class AgoraService {
     RtcEngine.on('userJoined', data => {
       console.log('[RtcEngine] onUserJoined', data)
       // configureStore().agoraStore.setCurrentBroadcaster(data.uid)
-      DeviceEventEmitter.emit('uid', {uid: data.uid})
+      DeviceEventEmitter.emit('uuid', {uid: data.uid})
 
     })
     RtcEngine.on('userOffline', data => {
@@ -74,7 +75,7 @@ class AgoraService {
       })
       // RtcEngine.startPreview()
       // this.joinChannelSocket(DEFAULT_CHANNEL, data.uid)
-      // DeviceEventEmitter.emit('uid', {uid: data.uid})
+      DeviceEventEmitter.emit('uid', {uid: data.uid})
     })
     RtcEngine.on('audioVolumeIndication', data => {
       console.log('[RtcEngine] onAudioVolumeIndication', data)
