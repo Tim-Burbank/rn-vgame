@@ -130,6 +130,14 @@ class AgoraService {
     RtcEngine.init(CONFIG)
   }
 
+  enableLocalAudio(enabled){
+    RtcEngine.enableLocalAudio(enabled)
+  }
+
+  muteLocalVideoStream(muted) {
+    RtcEngine.muteLocalVideoStream(muted)
+  }
+
   destroy() {
     const agoraStore = configureStore().agoraStore
     console.log('[RtcEngine] joinSuccess ', agoraStore.joinSuccess)
@@ -174,12 +182,12 @@ class AgoraService {
        * ADD the code snippet after join channel success.
        */
       console.log('[RtcEngine] joinChannel result , ' + result)
+      RtcEngine.enableLocalAudio(true)
       // if (result === 0) {
       //   RtcEngine.enableAudioVolumeIndication(-500, 3, true)
       // }
     })
-    RtcEngine.enableAudioVolumeIndication(500, 3, true);
-
+    // RtcEngine.enableAudioVolumeIndication(500, 3, true);
   }
 
   joinChannelSocket(channel: string = DEFAULT_CHANNEL, uid: number) {
