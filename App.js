@@ -12,13 +12,13 @@ import {
 import { agoraService } from "./agora"
 import { AgoraView } from 'react-native-agora'
 import RNPermissions, {PERMISSIONS, check} from 'react-native-permissions'
-import Voice from 'react-native-voice'
-const SpeechRecognitionModule = NativeModules.SpeechRecognitionModule
-const SpeechRecognitionEmitter = new NativeEventEmitter(NativeModules.SpeechRecognitionResultModule)
+// import Voice from 'react-native-voice'
+// const SpeechRecognitionModule = NativeModules.SpeechRecognitionModule
+// const SpeechRecognitionEmitter = new NativeEventEmitter(NativeModules.SpeechRecognitionResultModule)
 export default class HelloWorldApp extends Component {
   constructor(props) {
     super(props)
-    if (Platform.OS === 'ios') this.listener = SpeechRecognitionEmitter.addListener('SpeechRecognitionFinish', this.onSpeechResults.bind(this))
+    // if (Platform.OS === 'ios') this.listener = SpeechRecognitionEmitter.addListener('SpeechRecognitionFinish', this.onSpeechResults.bind(this))
   }
   li
   state={
