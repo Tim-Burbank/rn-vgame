@@ -58,6 +58,7 @@ class AgoraService {
     })
     RtcEngine.on('userOffline', data => {
       console.log('[RtcEngine] onUserOffline', data)
+      DeviceEventEmitter.emit('uuidOff', {uid: data.uid})
       // configureStore().agoraStore.setCurrentBroadcaster(0)
     })
     RtcEngine.on('joinChannelSuccess', data => {
@@ -172,12 +173,13 @@ class AgoraService {
       /**
        * ADD the code snippet after join channel success.
        */
-      RtcEngine.enableAudioVolumeIndication(500, 3, true);
       console.log('[RtcEngine] joinChannel result , ' + result)
       // if (result === 0) {
       //   RtcEngine.enableAudioVolumeIndication(-500, 3, true)
       // }
     })
+    RtcEngine.enableAudioVolumeIndication(500, 3, true);
+
   }
 
   joinChannelSocket(channel: string = DEFAULT_CHANNEL, uid: number) {
