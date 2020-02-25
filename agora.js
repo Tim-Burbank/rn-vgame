@@ -16,7 +16,7 @@ const CLIENT_ROLE_AUDIENCE = 2 // 直播频道中的观众
 const CONFIG = {
   appid: APPID,
   channelProfile: CHANNEL_PROFILE,
-  clientRole: CLIENT_ROLE_AUDIENCE,
+  clientRole: CLIENT_ROLE_BROADCASTER,
   mode:1,
   videoEncoderConfig: {
     width: 360,
@@ -32,8 +32,8 @@ const CONFIG = {
     rednessLevel: 0.1
   },
   dualStream: false,
-  audioProfile: AudioProfileDefault,
-  audioScenario: AudioScenarioDefault
+  // audioProfile: AudioProfileDefault,
+  // audioScenario: AudioScenarioDefault
 }
 
 const DEFAULT_CHANNEL = '11376'
