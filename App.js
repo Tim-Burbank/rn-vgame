@@ -85,10 +85,10 @@ export default class HelloWorldApp extends Component {
     this.setState({startLocal: true})
 
     this.joinFlag = true
-    setTimeout(() => {
-      this.startRecog()
-      this.checkIfInRoom()
-    }, 500)
+    // setTimeout(() => {
+    //   this.startRecog()
+    //   this.checkIfInRoom()
+    // }, 500)
   }
   checkIfInRoom(){
     this.timer = setInterval(async() => {
@@ -105,7 +105,7 @@ export default class HelloWorldApp extends Component {
   }
   leave(){
     agoraService.leaveChannel();
-    this.stopRecog()
+    // this.stopRecog()
     clearInterval(this.timer)
     this.joinFlag = false
     this.recFlag = false

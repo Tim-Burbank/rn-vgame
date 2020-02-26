@@ -14,7 +14,9 @@
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-agora": "git+https://gitlab.x.yunio.com/web-public/react-native-agora.git#2.9.1-fix1",
-    "react-native-permissions": "^2.0.9"
+    "react-native-fs": "^2.16.6",
+    "react-native-permissions": "^2.0.9",
+    "react-native-speech-iflytek": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

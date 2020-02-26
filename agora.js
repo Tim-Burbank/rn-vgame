@@ -2,7 +2,7 @@ import {DeviceEventEmitter, NativeModules} from 'react-native'
 import { RtcEngine } from 'react-native-agora'
 // import configureStore from '../boot/configureStore'
 // import BackgroundTimer from 'react-native-background-timer'
-
+import RNFS from 'react-native-fs'
 const { Agora } = NativeModules
 console.log(Agora)
 if (!Agora) {
@@ -128,6 +128,9 @@ class AgoraService {
 
   init() {
     RtcEngine.init(CONFIG)
+    let p = RNFS.DocumentDirectoryPath
+    console.log('ooooo', p)
+    RtcEngine.setLog(p,1,512)
   }
 
   enableLocalAudio(enabled){
