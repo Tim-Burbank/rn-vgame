@@ -8,7 +8,7 @@ console.log(Agora)
 if (!Agora) {
   throw new Error('Agora load failed in react-native, please check ur compiler environments')
 }
-const { FPS30, AudioProfileDefault, AudioScenarioDefault, Adaptative } = Agora
+const { FPS30, AudioScenarioDefault, Adaptative } = Agora
 const APPID = 'f47f8efaa98f4195aeeeb9f2b16c609e'
 const CHANNEL_PROFILE = 1 // (0)：通信模式 (1)：直播模式
 const CLIENT_ROLE_BROADCASTER = 1 // 直播频道中的主播
@@ -32,8 +32,8 @@ const CONFIG = {
     rednessLevel: 0.1
   },
   dualStream: false,
-  // audioProfile: AudioProfileDefault,
-  // audioScenario: AudioScenarioDefault
+  audioProfile: AudioScenarioDefault,
+  audioScenario: AudioScenarioDefault
 }
 
 const DEFAULT_CHANNEL = '11376'
@@ -138,6 +138,10 @@ class AgoraService {
     RtcEngine.muteLocalVideoStream(muted)
   }
 
+  switchCamera(){
+    RtcEngine.switchCamera()
+  }
+
   destroy() {
     const agoraStore = configureStore().agoraStore
     console.log('[RtcEngine] joinSuccess ', agoraStore.joinSuccess)
@@ -176,17 +180,9 @@ class AgoraService {
     })
   }
 
-  joinChannel(channel = DEFAULT_CHANNEL, uid, token) {
-    RtcEngine.joinChannel(channel, uid, token).then(result => {
-      /**
-       * ADD the code snippet after join channel success.
-       */
-      console.log('[RtcEngine] joinChannel result , ' + result)
-      RtcEngine.enableLocalAudio(true)
-      // if (result === 0) {
-      //   RtcEngine.enableAudioVolumeIndication(-500, 3, true)
-      // }
-    })
+  async joinChannel(channel = DEFAULT_CHANNEL, uid, token) {
+    await RtcEngine.joinChannel(channel, uid, token)
+    RtcEngine.enableLocalAudio(true)
     // RtcEngine.enableAudioVolumeIndication(500, 3, true);
   }
 

@@ -12,26 +12,26 @@ import {
 import { agoraService } from "./agora"
 import { AgoraView } from 'react-native-agora'
 import RNPermissions, {PERMISSIONS, check} from 'react-native-permissions'
-// import Voice from 'react-native-voice'
-// const SpeechRecognitionModule = NativeModules.SpeechRecognitionModule
-// const SpeechRecognitionEmitter = new NativeEventEmitter(NativeModules.SpeechRecognitionResultModule)
+import Voice from '@react-native-community/voice';
 export default class HelloWorldApp extends Component {
   constructor(props) {
     super(props)
-    // if (Platform.OS === 'ios') this.listener = SpeechRecognitionEmitter.addListener('SpeechRecognitionFinish', this.onSpeechResults.bind(this))
+    Voice.onSpeechPartialResults = this.onSpeechResults.bind(this)
   }
   li
+  joinFlag = false
+  recFlag = false
   state={
     uid:0,
     uuid: [],
     startLocal: false,
     audio: true,
-    video: false
+    video: false,
   }
   async componentWillMount() {
     await RNPermissions.request(PERMISSIONS.IOS.CAMERA)
     await RNPermissions.request(PERMISSIONS.IOS.MICROPHONE)
-    // await RNPermissions.request(PERMISSIONS.IOS.SPEECH_RECOGNITION)
+    await RNPermissions.request(PERMISSIONS.IOS.SPEECH_RECOGNITION)
     check(PERMISSIONS.IOS.MICROPHONE).then(res=> {
       console.log('RNPermissions-m',res)
     })
@@ -65,58 +65,55 @@ export default class HelloWorldApp extends Component {
     })
   }
 
-  // onSpeechResults(e) {
-  //   console.log('-------', e.result)
-  //   this.setState({text: e.result})
-  // }
+  onSpeechResults(e) {
+    console.log('-------', e.value)
+    if(!this.joinFlag) return
+    this.setState({text: e.value})
+  }
 
-  // async startRecog() {
-  //   console.log('startttttt')
-  //   // 开始语音识别
-  //   // let speechpermission = await Permissions.check('speechRecognition')
-  //   // console.log(speechpermission)
-  //   // if (speechpermission === 'undetermined') {
-  //   //   await Permissions.request('speechRecognition')
-  //   //   speechpermission = await Permissions.check('speechRecognition')
-  //   // }
-  //   // if (speechpermission !== 'authorized') {
-  //   //   this.presentToast('请在设置中打开小世界的“语音识别”权限。')
-  //   //   return
-  //   // }
-  //   // let microphonepermission = await Permissions.check('microphone')
-  //   // console.log(microphonepermission)
-  //   // if (microphonepermission === 'undetermined') {
-  //   //   await Permissions.request('microphone')
-  //   //   microphonepermission = await Permissions.check('microphone')
-  //   // }
-  //   // if (microphonepermission !== 'authorized') {
-  //   //   this.presentToast('请在设置中打开小世界的“麦克风”权限。')
-  //   //   return
-  //   // }
-  //
-  //   this.setState({recordBtnText: 'Release to stop'})
-  //   if (Platform.OS === 'ios') {
-  //     SpeechRecognitionModule.isSpeechAvailable((result) => {
-  //       console.log(result)
-  //     })
-  //     SpeechRecognitionModule.startRecording()
-  //   } else {
-  //     Voice.start('zh-CN')
-  //   }
-  //   this.setState({recordBtnText: 'Release to stop'})
-  //
-  // }
-  //
-  // stopRecog() {
-  //   console.log('endddddd')
-  //   this.setState({recordBtnText: 'Press to record'})
-  //   // 停止语音识别
-  //   if (Platform.OS === 'ios') {
-  //     SpeechRecognitionModule.stopRecording()
-  //   } else {
-  //     Voice.stop()
-  //   }
-  // }
+  async startRecog() {
+    this.recFlag = true
+    console.log('startttttt')
+    this.setState({recordBtnText: 'Release to stop'})
+    await Voice.start('zh-CN')
+    this.setState({recordBtnText: 'Release to stop'})
+
+  }
+
+  stopRecog() {
+    console.log('endddddd')
+    this.setState({recordBtnText: 'Press to record'})
+    // 停止语音识别
+      Voice.stop()
+  }
+  async join () {
+    await agoraService.joinChannel()
+    this.setState({startLocal: true})
+    this.joinFlag = true
+    setTimeout(() => {
+      this.startRecog()
+      this.checkIfInRoom()
+    },100)
+  }
+  checkIfInRoom(){
+    this.timer = setInterval(() => {
+      if(this.joinFlag && this.recFlag){
+        this.stopRecog()
+        this.startRecog()
+      } else {
+        this.stopRecog()
+      }
+    }, 30000)
+  }
+  leave(){
+    agoraService.leaveChannel();
+    this.stopRecog()
+    clearInterval(this.timer)
+    this.joinFlag = false
+    this.recFlag = false
+    this.setState({startLocal: false, uuid:[], text: ''})
+  }
+
   render() {
     const {audio,startLocal,uuid, video} = this.state
     return (
@@ -125,31 +122,45 @@ export default class HelloWorldApp extends Component {
           <Text>Hello, world!</Text>
           <Text>{this.state.text}</Text>
         <View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>
-            <TouchableOpacity style={{width:70, height: 30, marginRight: 20, backgroundColor: 'orange',justifyContent: "center", alignItems: "center"}} onPress={()=> {agoraService.joinChannel();this.setState({startLocal: true})}}><Text>加入频道</Text></TouchableOpacity>
-            <TouchableOpacity style={{width:70, height: 30, backgroundColor: 'yellow', justifyContent: "center", alignItems: "center"}} onPress={()=> {agoraService.leaveChannel();this.setState({startLocal: false, uuid:[]})}}><Text>离开频道</Text></TouchableOpacity>
+            <TouchableOpacity style={{width:70, height: 30, marginRight: 20, backgroundColor: '#DBDBDB',justifyContent: "center", alignItems: "center"}}
+                              onPress={()=> {
+                                this.join()
+            }}><Text>加入频道</Text></TouchableOpacity>
+            <TouchableOpacity style={{width:70, height: 30, backgroundColor: '#D3D3D3', justifyContent: "center", alignItems: "center"}}
+                              onPress={()=> {
+                                this.leave()
+                              }
+            }><Text>离开频道</Text></TouchableOpacity>
           </View>
           <View style={{justifyContent: 'space-between', flexDirection: 'row' ,flexWrap: 'wrap'}}>
             {startLocal && <AgoraView style={{width: 100, height: 100}} showLocalVideo={this.state.startLocal} mode={1}/>}
             {uuid.map(v=>
-              <AgoraView style={{width: 100, height: 100}}  mode={1} zOrderMediaOverlay={true} remoteUid={v}/>
+              <AgoraView key={v} style={{width: 100, height: 100}}  mode={1} zOrderMediaOverlay={true} remoteUid={v}/>
             )}
           </View>
-        {/*<View style={{marginTop: 100, width:70, height: 30, backgroundColor: 'pink', justifyContent: "center", alignItems: "center"}}*/}
-              {/*onTouchStart={()=> this.startRecog()}*/}
-              {/*onTouchEnd={()=> this.stopRecog()}*/}
-        {/*><Text>识别</Text></View>*/}
         <View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>
         <TouchableOpacity
-          style={{width:70, height: 30, backgroundColor: 'green', justifyContent: "center", alignItems: "center", marginRight: 20}}
+          style={{width:70, height: 30, backgroundColor: '#CDB7B5', justifyContent: "center", alignItems: "center", marginRight: 20}}
           onPress={()=> {this.setState({audio: !audio});agoraService.enableLocalAudio(!audio)}}>
           <Text>{audio?'闭麦':'开麦'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{width:70, height: 30, backgroundColor: '#FFC0CB', justifyContent: "center", alignItems: "center"}}
+          style={{width:70, height: 30, backgroundColor: '#CDAF95', justifyContent: "center", alignItems: "center", marginRight: 20}}
           onPress={()=> {this.setState({video: !video});agoraService.muteLocalVideoStream(!video)}}>
           <Text>{!video?'关视频':'开视频'}</Text>
         </TouchableOpacity>
+          <TouchableOpacity
+            style={{width:70, height: 30, backgroundColor: '#E6E6FA', justifyContent: "center", alignItems: "center"}}
+            onPress={()=> {this.setState({video: !video});agoraService.switchCamera()}}>
+            <Text>切换相机</Text>
+          </TouchableOpacity>
         </View>
+        {/*<View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>*/}
+          {/*<View style={{marginTop: 100, width:70, height: 30, backgroundColor: 'pink', justifyContent: "center", alignItems: "center"}}*/}
+          {/*onTouchStart={()=> this.startRecog()}*/}
+          {/*onTouchEnd={()=> this.stopRecog()}*/}
+          {/*><Text>识别</Text></View>*/}
+        {/*</View>*/}
       </View>
       </ScrollView>
     );

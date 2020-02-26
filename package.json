@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/voice": "^1.0.6",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-agora": "git+https://gitlab.x.yunio.com/web-public/react-native-agora.git#2.9.1-fix1",

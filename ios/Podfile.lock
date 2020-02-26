@@ -24,6 +24,8 @@ PODS:
     - RNPermissions
   - Permission-Microphone (2.0.9):
     - RNPermissions
+  - Permission-SpeechRecognition (2.0.9):
+    - RNPermissions
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -190,6 +192,8 @@ PODS:
   - react-native-agora (2.9.1-alpha.3):
     - AgoraRtcEngine_iOS (= 2.9.1)
     - React
+  - react-native-voice (1.0.6):
+    - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
   - React-RCTAnimation (0.61.5):
@@ -237,6 +241,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera.podspec`)
   - Permission-Microphone (from `../node_modules/react-native-permissions/ios/Microphone.podspec`)
+  - Permission-SpeechRecognition (from `../node_modules/react-native-permissions/ios/SpeechRecognition.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
@@ -249,6 +254,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-agora (from `../node_modules/react-native-agora`)
+  - "react-native-voice (from `../node_modules/@react-native-community/voice`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -283,6 +289,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions/ios/Camera.podspec"
   Permission-Microphone:
     :path: "../node_modules/react-native-permissions/ios/Microphone.podspec"
+  Permission-SpeechRecognition:
+    :path: "../node_modules/react-native-permissions/ios/SpeechRecognition.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTTypeSafety:
@@ -303,6 +311,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-agora:
     :path: "../node_modules/react-native-agora"
+  react-native-voice:
+    :path: "../node_modules/@react-native-community/voice"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -338,6 +348,7 @@ SPEC CHECKSUMS:
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   Permission-Camera: b0fec577b27488314a885f9c74433e02f3585b9b
   Permission-Microphone: c46ef776bd65d251d3bcb544bedaf7160c1afe06
+  Permission-SpeechRecognition: bd74f12392b41abd5362e9ebac4405cabfefd955
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
@@ -348,6 +359,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-agora: 6c6fd3ad003ab2560b9689f9486e15fee01fdf11
+  react-native-voice: a1fad94b687e004d888a4b21d00c8069eee2c174
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -361,6 +373,6 @@ SPEC CHECKSUMS:
   RNPermissions: 6db7e0a4d94c9c02390d11020b1d3d187aaf77e5
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 3fc75934fd037f842e69b10bb2617c87b1c98e2f
+PODFILE CHECKSUM: f694d1b5237821ddca1e61ff40b426ccbd70b401
 
 COCOAPODS: 1.8.4
