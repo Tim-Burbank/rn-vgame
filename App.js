@@ -16,7 +16,7 @@ import Voice from '@react-native-community/voice';
 export default class HelloWorldApp extends Component {
   constructor(props) {
     super(props)
-    Voice.onSpeechPartialResults = this.onSpeechResults.bind(this)
+    Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
   }
   li
   joinFlag = false
@@ -65,11 +65,12 @@ export default class HelloWorldApp extends Component {
     })
   }
 
-  onSpeechResults(e) {
+  onSpeechPartialResults(e) {
     console.log('-------', e.value)
     if(!this.joinFlag) return
     this.setState({text: e.value})
   }
+
 
   async startRecog() {
     this.recFlag = true
@@ -80,28 +81,27 @@ export default class HelloWorldApp extends Component {
 
   }
 
-  stopRecog() {
+  async stopRecog() {
     console.log('endddddd')
     this.setState({recordBtnText: 'Press to record'})
     // 停止语音识别
-      Voice.stop()
+      await Voice.stop()
   }
   async join () {
     await agoraService.joinChannel()
+    await this.startRecog()
+    this.checkIfInRoom()
     this.setState({startLocal: true})
     this.joinFlag = true
-    setTimeout(() => {
-      this.startRecog()
-      this.checkIfInRoom()
-    },100)
   }
   checkIfInRoom(){
-    this.timer = setInterval(() => {
+    this.timer = setInterval(async() => {
+      console.log('----check----')
       if(this.joinFlag && this.recFlag){
-        this.stopRecog()
-        this.startRecog()
+        await this.stopRecog()
+        await this.startRecog()
       } else {
-        this.stopRecog()
+        await this.stopRecog()
       }
     }, 30000)
   }
@@ -118,7 +118,7 @@ export default class HelloWorldApp extends Component {
     const {audio,startLocal,uuid, video} = this.state
     return (
       <ScrollView >
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingTop: 200 }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", paddingTop: 100 }}>
           <Text>Hello, world!</Text>
           <Text>{this.state.text}</Text>
         <View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>
@@ -132,12 +132,7 @@ export default class HelloWorldApp extends Component {
                               }
             }><Text>离开频道</Text></TouchableOpacity>
           </View>
-          <View style={{justifyContent: 'space-between', flexDirection: 'row' ,flexWrap: 'wrap'}}>
-            {startLocal && <AgoraView style={{width: 100, height: 100}} showLocalVideo={this.state.startLocal} mode={1}/>}
-            {uuid.map(v=>
-              <AgoraView key={v} style={{width: 100, height: 100}}  mode={1} zOrderMediaOverlay={true} remoteUid={v}/>
-            )}
-          </View>
+
         <View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>
         <TouchableOpacity
           style={{width:70, height: 30, backgroundColor: '#CDB7B5', justifyContent: "center", alignItems: "center", marginRight: 20}}
@@ -161,7 +156,13 @@ export default class HelloWorldApp extends Component {
           {/*onTouchEnd={()=> this.stopRecog()}*/}
           {/*><Text>识别</Text></View>*/}
         {/*</View>*/}
-      </View>
+        </View>
+        <View style={{justifyContent: 'space-between', flexDirection: 'row' ,flexWrap: 'wrap', marginVertical: 20,marginHorizontal:30}}>
+          {startLocal && <AgoraView style={{width: 100, height: 100}} showLocalVideo={this.state.startLocal} mode={1}/>}
+          {uuid.map(v=>
+            <AgoraView key={v} style={{width: 100, height: 100}}  mode={1} zOrderMediaOverlay={true} remoteUid={v}/>
+          )}
+        </View>
       </ScrollView>
     );
   }
