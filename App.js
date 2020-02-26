@@ -38,10 +38,6 @@ export default class HelloWorldApp extends Component {
     check(PERMISSIONS.IOS.CAMERA).then(res=> {
       console.log('RNPermissions-c',res)
     })
-    this.li = DeviceEventEmitter.addListener('uid', (uid)=>{
-      console.log('uid', uid)
-      this.setState({uid: uid.uid})
-    })
     this.li2 = DeviceEventEmitter.addListener('uuid', (uid)=>{
       console.log('uuid', uid)
       let _state = this.state.uuid.slice()
@@ -73,33 +69,35 @@ export default class HelloWorldApp extends Component {
 
 
   async startRecog() {
-    this.recFlag = true
     console.log('startttttt')
-    this.setState({recordBtnText: 'Release to stop'})
     await Voice.start('zh-CN')
-    this.setState({recordBtnText: 'Release to stop'})
+    this.recFlag = true
 
   }
 
   async stopRecog() {
     console.log('endddddd')
-    this.setState({recordBtnText: 'Press to record'})
-    // 停止语音识别
-      await Voice.stop()
+    await Voice.stop()
+    this.recFlag = false
   }
   async join () {
     await agoraService.joinChannel()
-    await this.startRecog()
-    this.checkIfInRoom()
     this.setState({startLocal: true})
+
     this.joinFlag = true
+    setTimeout(() => {
+      this.startRecog()
+      this.checkIfInRoom()
+    }, 500)
   }
   checkIfInRoom(){
     this.timer = setInterval(async() => {
       console.log('----check----')
       if(this.joinFlag && this.recFlag){
         await this.stopRecog()
-        await this.startRecog()
+        setTimeout(() => {
+          this.startRecog()
+        }, 1000)
       } else {
         await this.stopRecog()
       }
