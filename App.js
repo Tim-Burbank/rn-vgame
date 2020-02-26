@@ -83,29 +83,30 @@ export default class HelloWorldApp extends Component {
   async join () {
     await agoraService.joinChannel()
     this.setState({startLocal: true})
-
     this.joinFlag = true
-    // setTimeout(() => {
-    //   this.startRecog()
-    //   this.checkIfInRoom()
-    // }, 500)
+    setTimeout(() => {
+      this.startRecog()
+      this.checkIfInRoom()
+    }, 500)
+  }
+  sleep (time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
   }
   checkIfInRoom(){
     this.timer = setInterval(async() => {
       console.log('----check----')
       if(this.joinFlag && this.recFlag){
         await this.stopRecog()
-        setTimeout(() => {
-          this.startRecog()
-        }, 1000)
+        await this.sleep(1000)
+        await this.startRecog()
       } else {
         await this.stopRecog()
       }
-    }, 30000)
+    }, 50000)
   }
   leave(){
     agoraService.leaveChannel();
-    // this.stopRecog()
+    this.stopRecog()
     clearInterval(this.timer)
     this.joinFlag = false
     this.recFlag = false
