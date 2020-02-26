@@ -53,7 +53,6 @@ export default class HelloWorldApp extends Component {
     agoraService.init()
   }
   componentWillUnmount(){
-    this.li.remove()
     this.li2.remove()
     this.li3.remove()
     agoraService.leaveChannel().then(() => {

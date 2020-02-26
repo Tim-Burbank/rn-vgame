@@ -128,9 +128,9 @@ class AgoraService {
 
   init() {
     RtcEngine.init(CONFIG)
-    let p = RNFS.DocumentDirectoryPath
-    console.log('ooooo', p)
-    RtcEngine.setLog(p,1,512)
+    // let p = RNFS.DocumentDirectoryPath
+    // console.log('ooooo', p)
+    // RtcEngine.setLog(p,5,512)
   }
 
   enableLocalAudio(enabled){
