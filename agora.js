@@ -36,7 +36,8 @@ const CONFIG = {
   audioScenario: AudioScenarioDefault
 }
 
-const DEFAULT_CHANNEL = '11376'
+// const DEFAULT_CHANNEL = '11376'
+const DEFAULT_CHANNEL = '1137664'
 
 class AgoraService {
   currentRole = CLIENT_ROLE_AUDIENCE
@@ -133,8 +134,8 @@ class AgoraService {
     // RtcEngine.setLog(p,5,512)
   }
 
-  enableLocalAudio(enabled){
-    RtcEngine.enableLocalAudio(enabled)
+  muteLocalAudioStream(enabled){
+    RtcEngine.muteLocalAudioStream(enabled)
   }
 
   muteLocalVideoStream(muted) {
@@ -185,7 +186,7 @@ class AgoraService {
 
   async joinChannel(channel = DEFAULT_CHANNEL, uid, token) {
     await RtcEngine.joinChannel(channel, uid, token)
-    RtcEngine.enableLocalAudio(true)
+    // RtcEngine.enableLocalAudio(true)
     // RtcEngine.enableAudioVolumeIndication(500, 3, true);
   }
 

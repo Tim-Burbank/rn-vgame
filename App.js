@@ -18,14 +18,15 @@ export default class HelloWorldApp extends Component {
     super(props)
     Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
   }
-  li
+  li2
+  li3
   joinFlag = false
   recFlag = false
   state={
     uid:0,
     uuid: [],
     startLocal: false,
-    audio: true,
+    audio: false,
     video: false,
   }
   async componentWillMount() {
@@ -134,8 +135,8 @@ export default class HelloWorldApp extends Component {
         <View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>
         <TouchableOpacity
           style={{width:70, height: 30, backgroundColor: '#CDB7B5', justifyContent: "center", alignItems: "center", marginRight: 20}}
-          onPress={()=> {this.setState({audio: !audio});agoraService.enableLocalAudio(!audio)}}>
-          <Text>{audio?'闭麦':'开麦'}</Text>
+          onPress={()=> {this.setState({audio: !audio});agoraService.muteLocalAudioStream(!audio)}}>
+          <Text>{!audio?'闭麦':'开麦'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{width:70, height: 30, backgroundColor: '#CDAF95', justifyContent: "center", alignItems: "center", marginRight: 20}}
@@ -144,7 +145,7 @@ export default class HelloWorldApp extends Component {
         </TouchableOpacity>
           <TouchableOpacity
             style={{width:70, height: 30, backgroundColor: '#E6E6FA', justifyContent: "center", alignItems: "center"}}
-            onPress={()=> {this.setState({video: !video});agoraService.switchCamera()}}>
+            onPress={()=> {agoraService.switchCamera()}}>
             <Text>切换相机</Text>
           </TouchableOpacity>
         </View>
