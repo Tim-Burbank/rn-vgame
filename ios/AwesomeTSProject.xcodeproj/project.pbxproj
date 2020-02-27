@@ -12,7 +12,30 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		B7F136C52407C945005BF4D5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136C42407C945005BF4D5 /* CoreLocation.framework */; };
+		B7F136C72407C94F005BF4D5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136C62407C94F005BF4D5 /* CoreTelephony.framework */; };
+		B7F136C92407C956005BF4D5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136C82407C956005BF4D5 /* AVFoundation.framework */; };
+		B7F136CB2407C95D005BF4D5 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136CA2407C95D005BF4D5 /* AddressBook.framework */; };
+		B7F136CD2407C964005BF4D5 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136CC2407C964005BF4D5 /* Contacts.framework */; };
+		B7F136CF2407C96B005BF4D5 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136CE2407C96B005BF4D5 /* AudioToolbox.framework */; };
+		B7F136D12407C976005BF4D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136D02407C976005BF4D5 /* SystemConfiguration.framework */; };
+		B7F136D32407C985005BF4D5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136D22407C985005BF4D5 /* QuartzCore.framework */; };
+		B7F136D52407C98A005BF4D5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136D42407C98A005BF4D5 /* UIKit.framework */; };
+		B7F136D72407C98F005BF4D5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136D62407C98F005BF4D5 /* Foundation.framework */; };
+		B7F136D92407C997005BF4D5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136D82407C997005BF4D5 /* CoreGraphics.framework */; };
+		B7F136E12407D8AC005BF4D5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136E02407D8AB005BF4D5 /* libz.tbd */; };
+		B7F136E32407D8B6005BF4D5 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F136E22407D8B6005BF4D5 /* libc++.tbd */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B7F136C02407C84B005BF4D5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A79B9D06EBA42E6BBDA7EA7 /* RNSpeechIFlytek.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E49168D52006061600B9A23A;
+			remoteInfo = RNSpeechIFlytek;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -29,8 +52,25 @@
 		3061AB697E8A4E8D14426C47 /* Pods-AwesomeTSProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeTSProject.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeTSProject/Pods-AwesomeTSProject.debug.xcconfig"; sourceTree = "<group>"; };
 		4062633AEFA86A5589CECEFF /* Pods-AwesomeTSProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeTSProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeTSProject-tvOSTests/Pods-AwesomeTSProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		58D89EEDCD20BB7414B1E972 /* libPods-AwesomeTSProject-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AwesomeTSProject-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A79B9D06EBA42E6BBDA7EA7 /* RNSpeechIFlytek.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSpeechIFlytek.xcodeproj; path = "../node_modules/react-native-speech-iflytek/ios/RNSpeechIFlytek.xcodeproj"; sourceTree = "<group>"; };
 		95C27B483770FDEDB34AC6F8 /* Pods-AwesomeTSProject-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeTSProject-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-AwesomeTSProject-tvOSTests/Pods-AwesomeTSProject-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		9CD5A1B962C73288F9A1C505 /* libPods-AwesomeTSProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AwesomeTSProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB24A9170DD2494F8050CE1A /* libRNSpeechIFlytek.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSpeechIFlytek.a; sourceTree = "<group>"; };
+		B7F136C22407C904005BF4D5 /* iflyMSC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iflyMSC.framework; path = "../node_modules/react-native-speech-iflytek/ios/libs/iflyMSC.framework"; sourceTree = "<group>"; };
+		B7F136C42407C945005BF4D5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B7F136C62407C94F005BF4D5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B7F136C82407C956005BF4D5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B7F136CA2407C95D005BF4D5 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		B7F136CC2407C964005BF4D5 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		B7F136CE2407C96B005BF4D5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B7F136D02407C976005BF4D5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B7F136D22407C985005BF4D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B7F136D42407C98A005BF4D5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B7F136D62407C98F005BF4D5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		B7F136D82407C997005BF4D5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B7F136DD2407D62E005BF4D5 /* libRNPermissions.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNPermissions.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7F136E02407D8AB005BF4D5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B7F136E22407D8B6005BF4D5 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		C170AA8C003E21A0114FBAE8 /* libPods-AwesomeTSProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AwesomeTSProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C662176160636EAF40A4A753 /* Pods-AwesomeTSProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeTSProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeTSProjectTests/Pods-AwesomeTSProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D14FA88EFB98C515A3AA7080 /* Pods-AwesomeTSProject-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeTSProject-tvOS.release.xcconfig"; path = "Target Support Files/Pods-AwesomeTSProject-tvOS/Pods-AwesomeTSProject-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -46,6 +86,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7F136E32407D8B6005BF4D5 /* libc++.tbd in Frameworks */,
+				B7F136E12407D8AC005BF4D5 /* libz.tbd in Frameworks */,
+				B7F136D92407C997005BF4D5 /* CoreGraphics.framework in Frameworks */,
+				B7F136D72407C98F005BF4D5 /* Foundation.framework in Frameworks */,
+				B7F136D52407C98A005BF4D5 /* UIKit.framework in Frameworks */,
+				B7F136D32407C985005BF4D5 /* QuartzCore.framework in Frameworks */,
+				B7F136D12407C976005BF4D5 /* SystemConfiguration.framework in Frameworks */,
+				B7F136CF2407C96B005BF4D5 /* AudioToolbox.framework in Frameworks */,
+				B7F136CD2407C964005BF4D5 /* Contacts.framework in Frameworks */,
+				B7F136CB2407C95D005BF4D5 /* AddressBook.framework in Frameworks */,
+				B7F136C92407C956005BF4D5 /* AVFoundation.framework in Frameworks */,
+				B7F136C72407C94F005BF4D5 /* CoreTelephony.framework in Frameworks */,
+				B7F136C52407C945005BF4D5 /* CoreLocation.framework in Frameworks */,
 				0CD4809BB8E353FD135B1BDF /* libPods-AwesomeTSProject.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -102,6 +155,21 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7F136E22407D8B6005BF4D5 /* libc++.tbd */,
+				B7F136E02407D8AB005BF4D5 /* libz.tbd */,
+				B7F136DD2407D62E005BF4D5 /* libRNPermissions.a */,
+				B7F136D82407C997005BF4D5 /* CoreGraphics.framework */,
+				B7F136D62407C98F005BF4D5 /* Foundation.framework */,
+				B7F136D42407C98A005BF4D5 /* UIKit.framework */,
+				B7F136D22407C985005BF4D5 /* QuartzCore.framework */,
+				B7F136D02407C976005BF4D5 /* SystemConfiguration.framework */,
+				B7F136CE2407C96B005BF4D5 /* AudioToolbox.framework */,
+				B7F136CC2407C964005BF4D5 /* Contacts.framework */,
+				B7F136CA2407C95D005BF4D5 /* AddressBook.framework */,
+				B7F136C82407C956005BF4D5 /* AVFoundation.framework */,
+				B7F136C62407C94F005BF4D5 /* CoreTelephony.framework */,
+				B7F136C42407C945005BF4D5 /* CoreLocation.framework */,
+				B7F136C22407C904005BF4D5 /* iflyMSC.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				9CD5A1B962C73288F9A1C505 /* libPods-AwesomeTSProject.a */,
@@ -115,6 +183,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				7A79B9D06EBA42E6BBDA7EA7 /* RNSpeechIFlytek.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -128,6 +197,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				11408FAAA726C23FB7E5AC0E /* Pods */,
+				B7F136BC2407C84A005BF4D5 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -138,6 +208,22 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* AwesomeTSProject.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B7F136BC2407C84A005BF4D5 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				AB24A9170DD2494F8050CE1A /* libRNSpeechIFlytek.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		B7F136BD2407C84B005BF4D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B7F136C12407C84B005BF4D5 /* libRNSpeechIFlytek.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,7 +257,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
@@ -189,18 +275,35 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B7F136BD2407C84B005BF4D5 /* Products */;
+					ProjectRef = 7A79B9D06EBA42E6BBDA7EA7 /* RNSpeechIFlytek.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* AwesomeTSProject */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B7F136C12407C84B005BF4D5 /* libRNSpeechIFlytek.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNSpeechIFlytek.a;
+			remoteRef = B7F136C02407C84B005BF4D5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -304,15 +407,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = PLUDL49CMX;
+				DEVELOPMENT_TEAM = 939AKTX25B;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-speech-iflytek/ios/RNSpeechIFlytek/**",
+				);
 				INFOPLIST_FILE = AwesomeTSProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AwesomeTSProject\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pro.yamei.smallcastle;
+				PRODUCT_BUNDLE_IDENTIFIER = test.agora.demo.audio;
 				PRODUCT_NAME = AwesomeTSProject;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -324,15 +434,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PLUDL49CMX;
+				DEVELOPMENT_TEAM = 939AKTX25B;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-speech-iflytek/ios/RNSpeechIFlytek/**",
+				);
 				INFOPLIST_FILE = AwesomeTSProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AwesomeTSProject\"",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = pro.yamei.smallcastle;
+				PRODUCT_BUNDLE_IDENTIFIER = test.agora.demo.audio;
 				PRODUCT_NAME = AwesomeTSProject;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

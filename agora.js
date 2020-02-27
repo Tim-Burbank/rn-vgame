@@ -36,7 +36,10 @@ const CONFIG = {
   audioScenario: AudioScenarioDefault
 }
 
+<<<<<<< HEAD
 // const DEFAULT_CHANNEL = '11376'
+=======
+>>>>>>> 98e55aac3cf0fe4c2d4aa3e8ee42d6086096699d
 const DEFAULT_CHANNEL = '1137664'
 
 class AgoraService {
@@ -132,6 +135,9 @@ class AgoraService {
     // let p = RNFS.DocumentDirectoryPath
     // console.log('ooooo', p)
     // RtcEngine.setLog(p,5,512)
+    RtcEngine.getSdkVersion(v => {
+      console.log('vvvvv', v)
+    })
   }
 
   muteLocalAudioStream(enabled){
