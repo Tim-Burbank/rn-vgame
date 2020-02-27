@@ -36,7 +36,7 @@ const CONFIG = {
   audioScenario: AudioScenarioDefault
 }
 
-const DEFAULT_CHANNEL = '11376'
+const DEFAULT_CHANNEL = '1137664'
 
 class AgoraService {
   currentRole = CLIENT_ROLE_AUDIENCE
@@ -131,6 +131,9 @@ class AgoraService {
     // let p = RNFS.DocumentDirectoryPath
     // console.log('ooooo', p)
     // RtcEngine.setLog(p,5,512)
+    RtcEngine.getSdkVersion(v => {
+      console.log('vvvvv', v)
+    })
   }
 
   enableLocalAudio(enabled){
@@ -185,7 +188,7 @@ class AgoraService {
 
   async joinChannel(channel = DEFAULT_CHANNEL, uid, token) {
     await RtcEngine.joinChannel(channel, uid, token)
-    RtcEngine.enableLocalAudio(true)
+    // RtcEngine.enableLocalAudio(true)
     // RtcEngine.enableAudioVolumeIndication(500, 3, true);
   }
 

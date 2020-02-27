@@ -7,8 +7,10 @@ import {
   ScrollView,
   Platform,
   NativeModules,
-  NativeEventEmitter
+  NativeEventEmitter,
+  Button
 } from 'react-native'
+import { Recognizer, Synthesizer, SpeechConstant } from "react-native-speech-iflytek"
 import { agoraService } from "./agora"
 import { AgoraView } from 'react-native-agora'
 import RNPermissions, {PERMISSIONS, check} from 'react-native-permissions'
@@ -16,11 +18,11 @@ import Voice from '@react-native-community/voice';
 export default class HelloWorldApp extends Component {
   constructor(props) {
     super(props)
-    Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
   }
   li
   joinFlag = false
   recFlag = false
+  recognizerEventEmitter
   state={
     uid:0,
     uuid: [],
@@ -29,15 +31,28 @@ export default class HelloWorldApp extends Component {
     video: false,
   }
   async componentWillMount() {
-    await RNPermissions.request(PERMISSIONS.IOS.CAMERA)
-    await RNPermissions.request(PERMISSIONS.IOS.MICROPHONE)
-    await RNPermissions.request(PERMISSIONS.IOS.SPEECH_RECOGNITION)
-    check(PERMISSIONS.IOS.MICROPHONE).then(res=> {
-      console.log('RNPermissions-m',res)
-    })
-    check(PERMISSIONS.IOS.CAMERA).then(res=> {
-      console.log('RNPermissions-c',res)
-    })
+    // 视频聊天
+    if (Platform.OS == 'android') {
+      await RNPermissions.request(PERMISSIONS.ANDROID.CAMERA)
+      await RNPermissions.request(PERMISSIONS.ANDROID.MICROPHONE)
+      check(PERMISSIONS.ANDROID.MICROPHONE).then(res=> {
+        console.log('RNPermissions-m',res)
+      })
+      check(PERMISSIONS.ANDROID.CAMERA).then(res=> {
+        console.log('RNPermissions-c',res)
+      })
+    } else {
+      await RNPermissions.request(PERMISSIONS.IOS.CAMERA)
+      await RNPermissions.request(PERMISSIONS.IOS.MICROPHONE)
+      await RNPermissions.request(PERMISSIONS.IOS.SPEECH_RECOGNITION)
+      check(PERMISSIONS.IOS.MICROPHONE).then(res=> {
+        console.log('RNPermissions-m',res)
+      })
+      check(PERMISSIONS.IOS.CAMERA).then(res=> {
+        console.log('RNPermissions-c',res)
+      })
+    }
+
     this.li2 = DeviceEventEmitter.addListener('uuid', (uid)=>{
       console.log('uuid', uid)
       let _state = this.state.uuid.slice()
@@ -51,32 +66,66 @@ export default class HelloWorldApp extends Component {
       this.setState({uuid: _state})
     })
     agoraService.init()
+
+    // 语音识别
+    if(Platform.OS == 'android') {
+      console.log('android:语音识别 init')
+      Recognizer.init("57c7c5b0");
+      this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
+      this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
+    } else {
+      console.log('ios:语音识别 init')
+      console.log(Recognizer);
+      Recognizer.init("59a4161e")
+      this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
+      this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
+      Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
+    }
+
   }
+
   componentWillUnmount(){
-    this.li2.remove()
-    this.li3.remove()
+    // this.li2.remove()
+    // this.li3.remove()
     agoraService.leaveChannel().then(() => {
       RtcEngine.destroy()
     })
+    if (Platform.OS == 'android') this.recognizerEventEmitter.removeAllListeners();
   }
 
+  // Voice
   onSpeechPartialResults(e) {
     console.log('-------', e.value)
     if(!this.joinFlag) return
     this.setState({text: e.value})
   }
 
+  // 讯飞
+  onRecognizerResult(e) {
+    console.log('android:语音识别 result', e)
+    this.setState({ text: e.result });
+  }
+
 
   async startRecog() {
     console.log('startttttt')
-    await Voice.start('zh-CN')
+    // if (Platform.OS == 'android') {
+      Recognizer.start();
+    // } else {
+    //   await Voice.start('zh-CN')
+    //
+    // }
     this.recFlag = true
 
   }
 
   async stopRecog() {
     console.log('endddddd')
-    await Voice.stop()
+    // if (Platform.OS == 'android') {
+      Recognizer.stop();
+    // } else {
+    //   await Voice.stop()
+    // }
     this.recFlag = false
   }
   async join () {
@@ -87,6 +136,7 @@ export default class HelloWorldApp extends Component {
       this.startRecog()
       this.checkIfInRoom()
     }, 500)
+
   }
   sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
@@ -155,6 +205,7 @@ export default class HelloWorldApp extends Component {
           {/*><Text>识别</Text></View>*/}
         {/*</View>*/}
         </View>
+
         <View style={{justifyContent: 'space-between', flexDirection: 'row' ,flexWrap: 'wrap', marginVertical: 20,marginHorizontal:30}}>
           {startLocal && <AgoraView style={{width: 100, height: 100}} showLocalVideo={this.state.startLocal} mode={1}/>}
           {uuid.map(v=>
@@ -164,4 +215,5 @@ export default class HelloWorldApp extends Component {
       </ScrollView>
     );
   }
+
 }
