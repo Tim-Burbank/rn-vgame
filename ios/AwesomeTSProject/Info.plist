@@ -43,6 +43,12 @@
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>需要你的麦克风访问权限，才能使用麦克风功能。</string>
+  <key>NSLocationUsageDescription</key>
+  <string></string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string></string>
+  <key>NSContactsUsageDescription</key>
+  <string></string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>需要你的语音识别权限，才能使用语音识别功能。</string>
 	<key>UIBackgroundModes</key>
