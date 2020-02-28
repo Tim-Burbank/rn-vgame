@@ -81,8 +81,13 @@ export default class HelloWorldApp extends Component {
       Recognizer.init("5e577ebf")
       this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
       this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
+      this.recognizerEventEmitter.addListener('onRecognizerError', this.onRecognizerError.bind(this))
       // Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
     }
+
+    Recognizer.setParameter('VAD_BOS', '50000')
+    Recognizer.setParameter('VAD_EOS', '50000')
+
 
   }
 
@@ -108,9 +113,20 @@ export default class HelloWorldApp extends Component {
     this.setState({ text: e.result });
   }
 
+  onRecognizerError(result) {
+    if (result.errorCode !== 0) {
+      alert(JSON.stringify(result));
+    }
+  }
+
 
   async startRecog() {
     console.log('startttttt')
+    let vad_bos = await Recognizer.getParameter('VAD_BOS')
+    let vad_eos = await Recognizer.getParameter('VAD_EOS')
+    console.log('vad_bos:', vad_bos)
+    console.log('vad_eos:', vad_eos)
+
     // if (Platform.OS == 'android') {
       Recognizer.start();
     // } else {
