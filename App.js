@@ -77,10 +77,11 @@ export default class HelloWorldApp extends Component {
     } else {
       console.log('ios:语音识别 init')
       console.log(Recognizer);
+      console.log('66666', NativeModules);
       Recognizer.init("59a4161e")
       this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
       this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
-      Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
+      // Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
     }
 
   }
@@ -95,15 +96,15 @@ export default class HelloWorldApp extends Component {
   }
 
   // Voice
-  onSpeechPartialResults(e) {
-    console.log('-------', e.value)
-    if(!this.joinFlag) return
-    this.setState({text: e.value})
-  }
+  // onSpeechPartialResults(e) {
+  //   // console.log('-------', e.value)
+  //   if(!this.joinFlag) return
+  //   this.setState({text: e.value})
+  // }
 
   // 讯飞
   onRecognizerResult(e) {
-    console.log('android:语音识别 result', e)
+    console.log('讯飞:语音识别 result', e)
     this.setState({ text: e.result });
   }
 
