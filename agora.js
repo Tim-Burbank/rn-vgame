@@ -179,12 +179,7 @@ class AgoraService {
     //     // })
     //   })
     // }
-    RtcEngine.leaveChannel().then(_ => {
-      console.log('[RtcEngine] leave channel success')
-      // configureStore().appStore.socketEmit2('leave').then(() => {
-      //   console.log('[RtcEngine] socket leave leave leave')
-      // })
-    })
+    return RtcEngine.leaveChannel()
   }
 
   async joinChannel(channel = DEFAULT_CHANNEL, uid, token) {

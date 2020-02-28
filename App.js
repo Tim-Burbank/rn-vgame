@@ -35,8 +35,8 @@ export default class HelloWorldApp extends Component {
     // 视频聊天
     if (Platform.OS == 'android') {
       await RNPermissions.request(PERMISSIONS.ANDROID.CAMERA)
-      await RNPermissions.request(PERMISSIONS.ANDROID.MICROPHONE)
-      check(PERMISSIONS.ANDROID.MICROPHONE).then(res=> {
+      await RNPermissions.request(PERMISSIONS.ANDROID.RECORD_AUDIO)
+      check(PERMISSIONS.ANDROID.RECORD_AUDIO).then(res=> {
         console.log('RNPermissions-m',res)
       })
       check(PERMISSIONS.ANDROID.CAMERA).then(res=> {
@@ -72,21 +72,16 @@ export default class HelloWorldApp extends Component {
     if(Platform.OS === 'android') {
       console.log('android:语音识别 init')
       Recognizer.init("57c7c5b0");
-      this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
-      this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
     } else {
       console.log('ios:语音识别 init')
-      console.log(Recognizer);
-      console.log('66666', NativeModules);
       Recognizer.init("5e577ebf")
-      this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
-      this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
-      this.recognizerEventEmitter.addListener('onRecognizerError', this.onRecognizerError.bind(this))
       // Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
     }
-
-    Recognizer.setParameter('vad_bos', '100000')
-    Recognizer.setParameter('vad_eos', '100000')
+    this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
+    this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
+    this.recognizerEventEmitter.addListener('onRecognizerError', this.onRecognizerError.bind(this))
+    Recognizer.setParameter(SpeechConstant.VAD_BOS, '100000')
+    Recognizer.setParameter(SpeechConstant.VAD_EOS, '100000')
 
 
   }
@@ -97,7 +92,7 @@ export default class HelloWorldApp extends Component {
     agoraService.leaveChannel().then(() => {
       RtcEngine.destroy()
     })
-    if (Platform.OS == 'android') this.recognizerEventEmitter.removeAllListeners();
+    if (this.recognizerEventEmitter) this.recognizerEventEmitter.removeAllListeners();
   }
 
   // Voice
@@ -110,13 +105,13 @@ export default class HelloWorldApp extends Component {
   // 讯飞
   onRecognizerResult(e) {
     console.log('讯飞:语音识别 result', e)
-    // this.setState({ text: e.result });
-    if(e.isLast && this.joinFlag) {
+    this.setState({ text: e.result });
+
+    if(e.isLast == true && this.joinFlag) {
+      this.setState({ text: '中断重识' });
       setTimeout(() => {
         this.startRecog()
-      }, 2000)
-    } else {
-      this.setState({ text: e.result });
+      }, 500)
     }
   }
 
@@ -129,8 +124,8 @@ export default class HelloWorldApp extends Component {
 
   async startRecog() {
     console.log('startttttt')
-    let vad_bos = await Recognizer.getParameter('vad_bos')
-    let vad_eos = await Recognizer.getParameter('vad_eos')
+    let vad_bos = await Recognizer.getParameter(SpeechConstant.VAD_BOS)
+    let vad_eos = await Recognizer.getParameter(SpeechConstant.VAD_EOS)
     console.log('vad_bos:', vad_bos)
     console.log('vad_eos:', vad_eos)
 
@@ -155,30 +150,15 @@ export default class HelloWorldApp extends Component {
   }
   async join () {
     this.startRecog()
-    setTimeout(() => {
-      // this.startRecog()
-      agoraService.joinChannel()
-      this.setState({startLocal: true})
-      this.joinFlag = true
-      // this.checkIfInRoom()
-    }, 500)
 
+    await agoraService.joinChannel()
+    this.setState({startLocal: true})
+    this.joinFlag = true
   }
   sleep (time) {
     return new Promise((resolve) => setTimeout(resolve, time));
   }
-  checkIfInRoom(){
-    this.timer = setInterval(async() => {
-      console.log('----check----')
-      if(this.joinFlag && this.recFlag){
-        await this.stopRecog()
-        // await this.sleep(1000)
-        await this.startRecog()
-      } else {
-        await this.stopRecog()
-      }
-    }, 50000)
-  }
+  
   leave(){
     agoraService.leaveChannel();
     this.stopRecog()
