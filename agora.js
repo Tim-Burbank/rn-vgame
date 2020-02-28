@@ -17,7 +17,7 @@ const CONFIG = {
   appid: APPID,
   channelProfile: CHANNEL_PROFILE,
   clientRole: CLIENT_ROLE_BROADCASTER,
-  mode:1,
+  // mode:1,
   videoEncoderConfig: {
     width: 360,
     height: 360,

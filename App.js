@@ -85,8 +85,8 @@ export default class HelloWorldApp extends Component {
       // Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
     }
 
-    Recognizer.setParameter('VAD_BOS', '50000')
-    Recognizer.setParameter('VAD_EOS', '50000')
+    Recognizer.setParameter('vad_bos', '100000')
+    Recognizer.setParameter('vad_eos', '100000')
 
 
   }
@@ -110,7 +110,14 @@ export default class HelloWorldApp extends Component {
   // 讯飞
   onRecognizerResult(e) {
     console.log('讯飞:语音识别 result', e)
-    this.setState({ text: e.result });
+    // this.setState({ text: e.result });
+    if(e.isLast && this.joinFlag) {
+      setTimeout(() => {
+        this.startRecog()
+      }, 2000)
+    } else {
+      this.setState({ text: e.result });
+    }
   }
 
   onRecognizerError(result) {
@@ -122,8 +129,8 @@ export default class HelloWorldApp extends Component {
 
   async startRecog() {
     console.log('startttttt')
-    let vad_bos = await Recognizer.getParameter('VAD_BOS')
-    let vad_eos = await Recognizer.getParameter('VAD_EOS')
+    let vad_bos = await Recognizer.getParameter('vad_bos')
+    let vad_eos = await Recognizer.getParameter('vad_eos')
     console.log('vad_bos:', vad_bos)
     console.log('vad_eos:', vad_eos)
 
@@ -147,12 +154,13 @@ export default class HelloWorldApp extends Component {
     this.recFlag = false
   }
   async join () {
-    await agoraService.joinChannel()
-    this.setState({startLocal: true})
-    this.joinFlag = true
+    this.startRecog()
     setTimeout(() => {
-      this.startRecog()
-      this.checkIfInRoom()
+      // this.startRecog()
+      agoraService.joinChannel()
+      this.setState({startLocal: true})
+      this.joinFlag = true
+      // this.checkIfInRoom()
     }, 500)
 
   }
