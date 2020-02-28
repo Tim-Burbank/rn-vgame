@@ -69,7 +69,7 @@ export default class HelloWorldApp extends Component {
     agoraService.init()
 
     // 语音识别
-    if(Platform.OS == 'android') {
+    if(Platform.OS === 'android') {
       console.log('android:语音识别 init')
       Recognizer.init("57c7c5b0");
       this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
@@ -78,7 +78,7 @@ export default class HelloWorldApp extends Component {
       console.log('ios:语音识别 init')
       console.log(Recognizer);
       console.log('66666', NativeModules);
-      Recognizer.init("59a4161e")
+      Recognizer.init("5e577ebf")
       this.recognizerEventEmitter = new NativeEventEmitter(Recognizer);
       this.recognizerEventEmitter.addListener('onRecognizerResult', this.onRecognizerResult.bind(this));
       // Voice.onSpeechPartialResults = this.onSpeechPartialResults.bind(this)
@@ -148,7 +148,7 @@ export default class HelloWorldApp extends Component {
       console.log('----check----')
       if(this.joinFlag && this.recFlag){
         await this.stopRecog()
-        await this.sleep(1000)
+        // await this.sleep(1000)
         await this.startRecog()
       } else {
         await this.stopRecog()
@@ -200,12 +200,12 @@ export default class HelloWorldApp extends Component {
             <Text>切换相机</Text>
           </TouchableOpacity>
         </View>
-        {/*<View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>*/}
-          {/*<View style={{marginTop: 100, width:70, height: 30, backgroundColor: 'pink', justifyContent: "center", alignItems: "center"}}*/}
-          {/*onTouchStart={()=> this.startRecog()}*/}
-          {/*onTouchEnd={()=> this.stopRecog()}*/}
-          {/*><Text>识别</Text></View>*/}
-        {/*</View>*/}
+        <View style={{justifyContent: 'flex-start', flexDirection:'row', marginVertical: 20}}>
+          <View style={{marginTop: 100, width:70, height: 30, backgroundColor: 'pink', justifyContent: "center", alignItems: "center"}}
+          onTouchStart={()=> this.startRecog()}
+          onTouchEnd={()=> this.stopRecog()}
+          ><Text>识别</Text></View>
+        </View>
         </View>
 
         <View style={{justifyContent: 'space-between', flexDirection: 'row' ,flexWrap: 'wrap', marginVertical: 20,marginHorizontal:30}}>
