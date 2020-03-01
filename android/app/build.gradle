@@ -134,6 +134,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     splits {
         abi {
             reset()
@@ -148,6 +149,12 @@ android {
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+        release {
+                       storeFile     file("sign.keystore") // 替换成你实际密匙文件所在位置
+                       storePassword     "123456" // 替换成你实际的密码
+                       keyAlias    "sign.keystore" // 替换
+                       keyPassword     "123456" // 替换
         }
     }
     buildTypes {

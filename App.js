@@ -10,7 +10,7 @@ import {
   NativeEventEmitter
 } from 'react-native'
 import { agoraService } from "./agora"
-import { AgoraView } from 'react-native-agora'
+import {AgoraView, RtcEngine} from 'react-native-agora'
 import RNPermissions, {PERMISSIONS, check} from 'react-native-permissions'
 import Voice from '@react-native-community/voice';
 export default class HelloWorldApp extends Component {
@@ -29,16 +29,29 @@ export default class HelloWorldApp extends Component {
     audio: false,
     video: false,
   }
+  recognizerEventEmitter
   async componentWillMount() {
-    await RNPermissions.request(PERMISSIONS.IOS.CAMERA)
-    await RNPermissions.request(PERMISSIONS.IOS.MICROPHONE)
-    await RNPermissions.request(PERMISSIONS.IOS.SPEECH_RECOGNITION)
-    check(PERMISSIONS.IOS.MICROPHONE).then(res=> {
-      console.log('RNPermissions-m',res)
-    })
-    check(PERMISSIONS.IOS.CAMERA).then(res=> {
-      console.log('RNPermissions-c',res)
-    })
+    if (Platform.OS == 'ios') {
+        await RNPermissions.request(PERMISSIONS.IOS.CAMERA)
+        await RNPermissions.request(PERMISSIONS.IOS.MICROPHONE)
+        await RNPermissions.request(PERMISSIONS.IOS.SPEECH_RECOGNITION)
+        check(PERMISSIONS.IOS.MICROPHONE).then(res=> {
+          console.log('RNPermissions-m',res)
+        })
+        check(PERMISSIONS.IOS.CAMERA).then(res=> {
+          console.log('RNPermissions-c',res)
+        })
+    } else {
+        await RNPermissions.request(PERMISSIONS.ANDROID.CAMERA)
+        await RNPermissions.request(PERMISSIONS.ANDROID.RECORD_AUDIO)
+        check(PERMISSIONS.ANDROID.RECORD_AUDIO).then(res=> {
+          console.log('RNPermissions-m',res)
+        })
+        check(PERMISSIONS.ANDROID.CAMERA).then(res=> {
+          console.log('RNPermissions-c',res)
+        })
+    }
+
     this.li2 = DeviceEventEmitter.addListener('uuid', (uid)=>{
       console.log('uuid', uid)
       let _state = this.state.uuid.slice()
@@ -52,7 +65,13 @@ export default class HelloWorldApp extends Component {
       this.setState({uuid: _state})
     })
     agoraService.init()
+
+    RtcEngine.on('onRecognizerResult', e => {
+      console.log('语音识别结果：', e)
+      this.setState({ text: e.result });
+    })
   }
+
   componentWillUnmount(){
     this.li2.remove()
     this.li3.remove()
